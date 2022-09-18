@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://twjimwang.github.io/tags/.net-core/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/categories/asp.net-core-blazor/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/posts/programming/blazor-001-overview/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/tags/blazor/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/categories/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/posts/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/tags/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/tags/web-app/</loc>
+    <lastmod>2022-09-18T11:36:34+08:00</lastmod>
+  </url><url>
+    <loc>https://twjimwang.github.io/archive/</loc>
+  </url><url>
+    <loc>https://twjimwang.github.io/search/</loc>
+  </url>
+</urlset>

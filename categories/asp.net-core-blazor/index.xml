@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ASP.NET Core Blazor on Jim&#39;s 技術部落格</title>
+    <link>https://twjimwang.github.io/categories/asp.net-core-blazor/</link>
+    <description>Recent content in ASP.NET Core Blazor on Jim&#39;s 技術部落格</description>
+    <image>
+      <url>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 18 Sep 2022 11:36:34 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/categories/asp.net-core-blazor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 001 初次見面</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-001-overview/</link>
+      <pubDate>Sun, 18 Sep 2022 11:36:34 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-001-overview/</guid>
+      <description>前言 這個系列是記錄我學習 Blazor 的筆記，如果有任何錯誤的地方歡迎提出指教 Blazor 是微軟打造的新一代全端解決方案，其名稱來自 Browser + Razor 可以讓網頁程式開發拋開 JavaScript</description>
+    </item>
+    
+  </channel>
+</rss>
