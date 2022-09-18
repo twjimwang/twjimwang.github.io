@@ -9,7 +9,34 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 18 Sep 2022 11:36:34 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 23:21:05 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 004 元件(Componet) 概觀</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-004-componet-overview/</link>
+      <pubDate>Sun, 18 Sep 2022 23:21:05 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-004-componet-overview/</guid>
+      <description>前言 元件(Componet) 是 Blazor 應用程式的基礎，是 UI 的元素，例如頁面、按鈕或者是表單，正式名稱為 Razor 元件(Razor component) Razor 是一種結合了 HTML 標記語言</description>
+    </item>
+    
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 003 專案架構(Blazor WebAssembly)</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-003-blazorwebassembly-projectstructure/</link>
+      <pubDate>Sun, 18 Sep 2022 23:17:58 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-003-blazorwebassembly-projectstructure/</guid>
+      <description>前言 在這一章會介紹 Blazor WebAssembly，分別是獨立(Standalone) Blazor WebAssembly和裝載(Hosted) Blazor WebAssembly 兩種範本專案</description>
+    </item>
+    
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 002 專案架構(Blazor Server)</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-002-blazorserver-projectstructure/</link>
+      <pubDate>Sun, 18 Sep 2022 23:15:27 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-002-blazorserver-projectstructure/</guid>
+      <description>前言 在接下來的章節將會對兩種 Bloazr 的專案範本做解說，分別是 Blazor Server 以及 Blazor WebAssembly，其中 WebAssembly 會介紹獨立(Standalone) Blazor WebAssembly 和裝載(</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 001 初次見面</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-001-overview/</link>
