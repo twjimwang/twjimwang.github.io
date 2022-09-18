@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 18 Sep 2022 23:21:05 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/categories/asp.net-core-blazor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Sep 2022 00:51:05 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/categories/asp.net-core-blazor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 005 元件(Componet)資料繫結</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-005-componet-databinding/</link>
+      <pubDate>Mon, 19 Sep 2022 00:51:05 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-005-componet-databinding/</guid>
+      <description>前言 上一篇我們做了一個簡單的表單元件，其中有用到 bind-value 來將 input 內的資料轉送到 C# 內，在這一篇我會來介紹 Razor 元件當中資料繫結的細節(繞口令) Data Binding 我看過有</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 004 元件(Componet) 概觀</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-004-componet-overview/</link>
