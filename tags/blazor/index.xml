@@ -9,7 +9,25 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 20 Sep 2022 09:17:00 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/blazor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Sep 2022 22:27:28 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/blazor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 008 元件(Componet) 事件處理</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-008-componet-eventhandling/</link>
+      <pubDate>Thu, 22 Sep 2022 22:27:28 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-008-componet-eventhandling/</guid>
+      <description>前言 這個章節介紹 Blazor 的事件處理，事件的引數、使用方式以及範例 事件介紹 這是一個非常簡單的按鈕事件範例，點下按鈕後會在Console內輸出 Hello World 1 2</description>
+    </item>
+    
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 007 元件(Componet) 生命週期</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-007-componet-lifecycle/</link>
+      <pubDate>Wed, 21 Sep 2022 22:55:49 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-007-componet-lifecycle/</guid>
+      <description>前言 在前幾個章節中，我們實作了一些元件，但是元件我們不知道元件是什麼時候建立的也還不知道什麼時候會消失，今天就來說說元件從建立到銷毀的流程與</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 006 元件(Componet) 參數</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-006-componet-parameter/</link>
@@ -20,7 +38,7 @@
     </item>
     
     <item>
-      <title>ASP.NET Core Blazor 系列 - 005 元件(Componet)資料繫結</title>
+      <title>ASP.NET Core Blazor 系列 - 005 元件(Componet) 資料繫結</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-005-componet-databinding/</link>
       <pubDate>Mon, 19 Sep 2022 00:51:05 +0800</pubDate>
       
