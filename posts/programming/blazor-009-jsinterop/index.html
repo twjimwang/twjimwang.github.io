@@ -1,0 +1,279 @@
+<!doctype html><html lang=zh-tw dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop) | Jim's 技術部落格</title><meta name=keywords content="Blazor,.net Core,Web App"><meta name=description content="前言 Blazor 應用程式有提供從 JavaSript 呼叫 .NET Method 的方法，當然反過來也可以從 .NET Method 叫用 JavaScript Function，打通兩個語言之間的邊界，讓互動性更上一層樓! 概觀 在 Blazor 中"><meta name=author content="Jim Wang"><link rel=canonical href=https://twjimwang.github.io/posts/programming/blazor-009-jsinterop/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://twjimwang.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://twjimwang.github.io/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=32x32 href=https://twjimwang.github.io/%3Clink%20/%20abs%20url%3E><link rel=apple-touch-icon href=https://twjimwang.github.io/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://twjimwang.github.io/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script async src="https://www.googletagmanager.com/gtag/js?id=G-8QXKJDDDRN"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-8QXKJDDDRN",{anonymize_ip:!1})}</script><meta property="og:title" content="ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)"><meta property="og:description" content="前言 Blazor 應用程式有提供從 JavaSript 呼叫 .NET Method 的方法，當然反過來也可以從 .NET Method 叫用 JavaScript Function，打通兩個語言之間的邊界，讓互動性更上一層樓! 概觀 在 Blazor 中"><meta property="og:type" content="article"><meta property="og:url" content="https://twjimwang.github.io/posts/programming/blazor-009-jsinterop/"><meta property="og:image" content="https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-09-23T20:07:01+08:00"><meta property="article:modified_time" content="2022-09-23T20:07:01+08:00"><meta property="og:site_name" content="ExampleSite"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)"><meta name=twitter:description content="前言 Blazor 應用程式有提供從 JavaSript 呼叫 .NET Method 的方法，當然反過來也可以從 .NET Method 叫用 JavaScript Function，打通兩個語言之間的邊界，讓互動性更上一層樓! 概觀 在 Blazor 中"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://twjimwang.github.io/posts/"},{"@type":"ListItem","position":2,"name":"ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)","item":"https://twjimwang.github.io/posts/programming/blazor-009-jsinterop/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)","name":"ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)","description":"前言 Blazor 應用程式有提供從 JavaSript 呼叫 .NET Method 的方法，當然反過來也可以從 .NET Method 叫用 JavaScript Function，打通兩個語言之間的邊界，讓互動性更上一層樓! 概觀 在 Blazor 中","keywords":["Blazor",".net Core","Web App"],"articleBody":"前言 Blazor 應用程式有提供從 JavaSript 呼叫 .NET Method 的方法，當然反過來也可以從 .NET Method 叫用 JavaScript Function，打通兩個語言之間的邊界，讓互動性更上一層樓!\n概觀 在 Blazor 中想要撰寫JS，有五種方式可以挑選\n在 標記 中載入指令碼 (不推薦) 1 2 3 4 5 6 7 8 不推薦寫在 head標記內的原因有兩個\n如果指令碼相依於 Blazor，則 JS Interop 可能會失敗 頁面可能會因為解析 JS 所需的時間增加而變慢 在 標記中載入指令碼 1 2 3 4 5 6 7 8 9 ... 從外部 JavaScript 檔案載入指令碼 這是最熟悉的方式，獨立的Javascript檔案從外部引入到檔案內，可以將Javascript 放置於wwwroot內 1 2 3 4 5 6 ... 從外部 JavaScript 檔案載入指令碼 (.js) 與元件共置 將 JavaScript 檔案組合在一起，以用於頁面(Page)、檢視(View)和 Razor 元件，是組織指令碼的便利方式，在 Blazor 中可以在元件的後方加上.js結尾，看起來像這樣.razor.js Pages/Index.razor.js\n1 2 3 export function showHello() { return prompt('Hello'); } Pages/Index.razor\n1 2 module = await JS.InvokeAsync\u003cIJSObjectReference\u003e( \"import\", \"./Pages/Index.razor.js\"); 在 Blazor 啟動後插入指令碼 在引入 Blazor 的 JS 時加入屬性 autostart=\"false\" 在 Blazor.start().then Blazor 啟動後，在建立Sctipt區塊填入JS檔案 1 2 3 4 5 6 7 8 9 10 11 12 13 ... ","wordCount":"1624","inLanguage":"zh-tw","datePublished":"2022-09-23T20:07:01+08:00","dateModified":"2022-09-23T20:07:01+08:00","author":{"@type":"Person","name":"Jim Wang"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://twjimwang.github.io/posts/programming/blazor-009-jsinterop/"},"publisher":{"@type":"Organization","name":"Jim's 技術部落格","logo":{"@type":"ImageObject","url":"https://twjimwang.github.io/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://twjimwang.github.io/ accesskey=h title="Jim's 技術部落格 (Alt + H)"><img src=https://twjimwang.github.io/apple-touch-icon.png alt aria-label=logo height=35>Jim's 技術部落格</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://twjimwang.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://twjimwang.github.io/archive/ title=Archive><span>Archive</span></a></li><li><a href=https://twjimwang.github.io/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://twjimwang.github.io/tags/ title=Tags><span>Tags</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://twjimwang.github.io/>首頁</a>&nbsp;»&nbsp;<a href=https://twjimwang.github.io/posts/>Posts</a></div><h1 class=post-title>ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)</h1><div class=post-meta><span title='2022-09-23 20:07:01 +0800 CST'>2022-09-23</span>&nbsp;·&nbsp;4 分鐘&nbsp;·&nbsp;1624 字&nbsp;·&nbsp;Jim Wang</div></header><aside id=toc-container class="toc-container wide"><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>目錄</span></summary><div class=inner><ul><li><a href=#%e5%89%8d%e8%a8%80 aria-label=前言>前言</a></li><li><a href=#%e6%a6%82%e8%a7%80 aria-label=概觀>概觀</a></li><li><a href=#net-%e5%8f%ab%e7%94%a8-javascript-%e5%87%bd%e5%bc%8f aria-label=".NET 叫用 JavaScript 函式">.NET 叫用 JavaScript 函式</a></li><li><a href=#javascript-%e5%8f%ab%e7%94%a8-net aria-label="JavaScript 叫用 .NET">JavaScript 叫用 .NET</a></li><li><a href=#%e5%b0%8f%e7%b5%90 aria-label=小結>小結</a></li></ul></div></details></div></aside><script>let activeElement,elements;window.addEventListener("DOMContentLoaded",function(){checkTocPosition(),elements=document.querySelectorAll("h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]"),activeElement=elements[0];const t=encodeURI(activeElement.getAttribute("id")).toLowerCase();document.querySelector(`.inner ul li a[href="#${t}"]`).classList.add("active")},!1),window.addEventListener("resize",function(){checkTocPosition()},!1),window.addEventListener("scroll",()=>{activeElement=Array.from(elements).find(e=>{if(getOffsetTop(e)-window.pageYOffset>0&&getOffsetTop(e)-window.pageYOffset<window.innerHeight/2)return e})||activeElement,elements.forEach(e=>{const t=encodeURI(e.getAttribute("id")).toLowerCase();e===activeElement?document.querySelector(`.inner ul li a[href="#${t}"]`).classList.add("active"):document.querySelector(`.inner ul li a[href="#${t}"]`).classList.remove("active")})},!1);const main=parseInt(getComputedStyle(document.body).getPropertyValue("--article-width"),10),toc=parseInt(getComputedStyle(document.body).getPropertyValue("--toc-width"),10),gap=parseInt(getComputedStyle(document.body).getPropertyValue("--gap"),10);function checkTocPosition(){const e=document.body.scrollWidth;e-main-toc*2-gap*4>0?document.getElementById("toc-container").classList.add("wide"):document.getElementById("toc-container").classList.remove("wide")}function getOffsetTop(e){if(!e.getClientRects().length)return 0;let t=e.getBoundingClientRect(),n=e.ownerDocument.defaultView;return t.top+n.pageYOffset}</script><div class=post-content><h2 id=前言>前言<a hidden class=anchor aria-hidden=true href=#前言>#</a></h2><p>Blazor 應用程式有提供從 JavaSript 呼叫 .NET Method 的方法，當然反過來也可以從 .NET Method 叫用 JavaScript Function，打通兩個語言之間的邊界，讓互動性更上一層樓!</p><h2 id=概觀>概觀<a hidden class=anchor aria-hidden=true href=#概觀>#</a></h2><p>在 Blazor 中想要撰寫JS，有五種方式可以挑選</p><ol><li>在 <code>&lt;head></code> 標記 中載入指令碼 (不推薦)</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&lt;head&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    &lt;script&gt;
+</span></span><span class=line><span class=cl>      window.jsMethod = () =&gt; {
+</span></span><span class=line><span class=cl>        alert(&#34;Hello World!&#34;)
+</span></span><span class=line><span class=cl>      };
+</span></span><span class=line><span class=cl>    &lt;/script&gt;
+</span></span><span class=line><span class=cl>&lt;/head&gt;
+</span></span></code></pre></td></tr></table></div></div><p>不推薦寫在 <code>head</code>標記內的原因有兩個</p><ul><li>如果指令碼相依於 Blazor，則 JS Interop 可能會失敗</li><li>頁面可能會因為解析 JS 所需的時間增加而變慢</li></ul><ol start=2><li>在 <code>&lt;body></code> 標記中載入指令碼</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&lt;body&gt;
+</span></span><span class=line><span class=cl>    ...
+</span></span><span class=line><span class=cl>    &lt;script src=&#34;_framework/blazor.{webassembly|server}.js&#34;&gt;&lt;/script&gt;
+</span></span><span class=line><span class=cl>    &lt;script&gt;
+</span></span><span class=line><span class=cl>      window.jsMethod = () =&gt; {
+</span></span><span class=line><span class=cl>        alert(&#34;Hello World!&#34;)
+</span></span><span class=line><span class=cl>      };
+</span></span><span class=line><span class=cl>    &lt;/script&gt;
+</span></span><span class=line><span class=cl>&lt;/body&gt;
+</span></span></code></pre></td></tr></table></div></div><ol start=3><li>從外部 JavaScript 檔案載入指令碼
+這是最熟悉的方式，獨立的Javascript檔案從外部引入到檔案內，可以將Javascript 放置於wwwroot內</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&lt;body&gt;
+</span></span><span class=line><span class=cl>    ...
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    &lt;script src=&#34;_framework/blazor.{webassembly|server}.js&#34;&gt;&lt;/script&gt;
+</span></span><span class=line><span class=cl>    &lt;script src=&#34;{要引入的Javascript檔名.js}&#34;&gt;&lt;/script&gt;
+</span></span><span class=line><span class=cl>&lt;/body&gt;
+</span></span></code></pre></td></tr></table></div></div><ol start=4><li>從外部 JavaScript 檔案載入指令碼 (.js) 與元件共置
+將 JavaScript 檔案組合在一起，以用於頁面(Page)、檢視(View)和 Razor 元件，是組織指令碼的便利方式，在 Blazor 中可以在元件的後方加上<code>.js</code>結尾，看起來像這樣<code>.razor.js</code></li></ol><p>Pages/Index.razor.js</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>export function showHello() {
+</span></span><span class=line><span class=cl>  return prompt(&#39;Hello&#39;);
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>Pages/Index.razor</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-v data-lang=v><span class=line><span class=cl><span class=kn>module</span> <span class=o>=</span> <span class=nv>await</span> <span class=nc>JS</span><span class=p>.</span><span class=nc>InvokeAsync</span><span class=p>&lt;</span><span class=nc>IJSObjectReference</span><span class=p>&gt;(</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;import&#34;</span><span class=p>,</span> <span class=s2>&#34;./Pages/Index.razor.js&#34;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=5><li>在 Blazor 啟動後插入指令碼</li></ol><ul><li>在引入 Blazor 的 JS 時加入屬性 <code>autostart="false"</code></li><li>在 <code>Blazor.start().then</code> Blazor 啟動後，在建立Sctipt區塊填入JS檔案</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>&lt;body&gt;
+</span></span><span class=line><span class=cl>    ...
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    &lt;script src=&#34;_framework/blazor.{webassembly|server}.js&#34; 
+</span></span><span class=line><span class=cl>        autostart=&#34;false&#34;&gt;&lt;/script&gt;
+</span></span><span class=line><span class=cl>    &lt;script&gt;
+</span></span><span class=line><span class=cl>      Blazor.start().then(function () {
+</span></span><span class=line><span class=cl>        var customScript = document.createElement(&#39;script&#39;);
+</span></span><span class=line><span class=cl>        customScript.setAttribute(&#39;src&#39;, &#39;scripts.js&#39;);
+</span></span><span class=line><span class=cl>        document.head.appendChild(customScript);
+</span></span><span class=line><span class=cl>      });
+</span></span><span class=line><span class=cl>    &lt;/script&gt;
+</span></span><span class=line><span class=cl>&lt;/body&gt;
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>不要把 <code>&lt;script></code> 放在 .razor 內，因為 Blazor 無法動態更新</p></blockquote><h2 id=net-叫用-javascript-函式>.NET 叫用 JavaScript 函式<a hidden class=anchor aria-hidden=true href=#net-叫用-javascript-函式>#</a></h2><p>想要在 .Net 內呼叫 JS 方法，首先需要 <code>IJSRuntime</code> 這一個介面，他的實作由 Blazor 框架註冊，這部分介紹兩個方法</p><ul><li>JSRuntimeExtensions.InvokeAsync
+這個方法適用於呼叫 JavaScript 函式並讀取傳回的值，用起來的效果像是這樣</li></ul><p><code>JavaScriptRun.razor.js</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>export function getHello() {
+</span></span><span class=line><span class=cl>    return &#39;Hello&#39;;
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-v data-lang=v><span class=line><span class=cl><span class=o>@</span><span class=nv>page</span> <span class=s2>&#34;/JsRun&#34;</span>
+</span></span><span class=line><span class=cl><span class=o>@</span><span class=nv>inject</span> <span class=nc>IJSRuntime</span> <span class=nc>JS</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nv>button</span> <span class=o>@</span><span class=nv>onclick</span><span class=o>=</span><span class=s2>&#34;getHello&#34;</span><span class=p>&gt;</span><span class=nc>Click</span><span class=p>&lt;</span><span class=o>/</span><span class=nv>button</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nv>p</span><span class=p>&gt;</span><span class=o>@</span><span class=nv>text</span><span class=p>&lt;</span><span class=o>/</span><span class=nv>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>@</span><span class=nv>code</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nv>private</span> <span class=nc>IJSObjectReference</span><span class=kd>?</span> <span class=kn>module</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=nv>protected</span> <span class=nv>override</span> <span class=nv>async</span> <span class=nc>Task</span> <span class=nc>OnAfterRenderAsync</span><span class=p>(</span><span class=kt>bool</span> <span class=nv>firstRender</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=p>(</span><span class=nv>firstRender</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=kn>module</span> <span class=o>=</span> <span class=nv>await</span> <span class=nc>JS</span><span class=p>.</span><span class=nc>InvokeAsync</span><span class=p>&lt;</span><span class=nc>IJSObjectReference</span><span class=p>&gt;(</span><span class=s2>&#34;import&#34;</span><span class=p>,</span> <span class=s2>&#34;./Pages/JavaScriptRun.razor.js&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nv>private</span> <span class=nb>string</span> <span class=nv>text</span><span class=p>{</span> <span class=nv>get</span><span class=p>;</span> <span class=nv>set</span><span class=p>;</span> <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nv>private</span> <span class=nv>async</span> <span class=nc>Task</span> <span class=nf>getHello</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nv>text</span> <span class=o>=</span> <span class=nv>await</span> <span class=kn>module</span><span class=p>.</span><span class=nc>InvokeAsync</span><span class=p>&lt;</span><span class=nb>string</span><span class=p>&gt;(</span><span class=s2>&#34;getHello&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>這邊採用的是上面的第四種方式: 從外部 JavaScript 檔案載入指令碼 (.js) 與元件共置</p><ul><li>JSRuntimeExtensions.InvokeVoidAsync
+這個則是用於呼叫沒有回傳值的 JS 方法</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>@page &#34;/JsRun&#34;
+</span></span><span class=line><span class=cl>@inject IJSRuntime JS
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&lt;button @onclick=&#34;AlertHello&#34;&gt;Click&lt;/button&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>@code {
+</span></span><span class=line><span class=cl>    private async Task AlertHello()
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>        await JS.InvokeVoidAsync(&#34;alert&#34;, &#34;Hello&#34;);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>JS Interop 呼叫預設都是非同步的，如果應用程式只有在 Blazor WebAssembly 執行，可以選擇進行同步 JS Interop 呼叫，這樣會稍微少一些額外負荷，而且可能會縮短轉譯週期</p></blockquote><h2 id=javascript-叫用-net>JavaScript 叫用 .NET<a hidden class=anchor aria-hidden=true href=#javascript-叫用-net>#</a></h2><p>接下來我們說說，從 JS 呼叫 .NET Method的方法</p><ul><li>呼叫靜態方法</li></ul><ol><li>DotNet.invokeMethodAsync
+這是一個非同步的方法，推薦使用這個來做 .NET 方法的呼叫
+語法看起來長這樣</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>DotNet.invokeMethodAsync(&#39;{組件名稱}&#39;, &#39;{方法名稱}&#39;, {參數});
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>DotNet.invokeMethod
+同步方法，僅對 Blazor WebAssembly 應用程式同步</li></ol><p>想要讓 JS可以呼叫到 .NET 有幾個先決條件</p><ol><li>方法必須是公開的(Public)</li><li>需要加入 <code>[JSInvokable]</code> Attribute</li></ol><p><code>JsRun.razor</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>@page &#34;/JsRun&#34;
+</span></span><span class=line><span class=cl>&lt;button onclick=&#34;getString()&#34;&gt;
+</span></span><span class=line><span class=cl>    Click
+</span></span><span class=line><span class=cl>&lt;/button&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>@code {
+</span></span><span class=line><span class=cl>    [JSInvokable]
+</span></span><span class=line><span class=cl>    public static async Task&lt;string&gt; GetHello()
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>        await Task.CompletedTask;
+</span></span><span class=line><span class=cl>        return &#34;Hello&#34;;
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>仔細看在Button Click的事件，沒有加入 <code>@</code> 代表這不是 Razor 語法</p><p><code>JsRun.js</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>window.getString = () =&gt; {
+</span></span><span class=line><span class=cl>    DotNet.invokeMethodAsync(&#39;BlazorApp1&#39;, &#39;GetHello&#39;)
+</span></span><span class=line><span class=cl>        .then(data =&gt; {
+</span></span><span class=line><span class=cl>            console.log(data);
+</span></span><span class=line><span class=cl>        });
+</span></span><span class=line><span class=cl>};
+</span></span></code></pre></td></tr></table></div></div><p>填入組件名稱以及方法名稱，就可以從JS呼叫 .NET 靜態方法了</p><ul><li>執行個體方法
+直接上程式碼</li></ul><p><code>JsRun.razor</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>@page &#34;/JsRun&#34;
+</span></span><span class=line><span class=cl>@implements IDisposable
+</span></span><span class=line><span class=cl>@inject IJSRuntime JS
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&lt;button @onclick=&#34;JsCallInstanceMethod&#34;&gt;
+</span></span><span class=line><span class=cl>    按我呼叫C# 執行個體方法
+</span></span><span class=line><span class=cl>&lt;/button&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>&lt;P&gt;@result&lt;/P&gt;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>@code {
+</span></span><span class=line><span class=cl>    private string? result;
+</span></span><span class=line><span class=cl>    private DotNetObjectReference&lt;JsRun&gt;? objRef;
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    public async Task JsCallInstanceMethod()
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>        objRef = DotNetObjectReference.Create(this);
+</span></span><span class=line><span class=cl>        result = await JS.InvokeAsync&lt;string&gt;(&#34;sayHello&#34;, objRef);
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    [JSInvokable]
+</span></span><span class=line><span class=cl>    public string GetHelloMessage()
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>        return $&#34;Hello !&#34;;
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    public void Dispose()
+</span></span><span class=line><span class=cl>    {
+</span></span><span class=line><span class=cl>        objRef?.Dispose();
+</span></span><span class=line><span class=cl>    }
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p><code>JsRun.razor.js</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>window.sayHello = (dotNetHelper) =&gt; {
+</span></span><span class=line><span class=cl>    return dotNetHelper.invokeMethodAsync(&#39;GetHelloMessage&#39;);
+</span></span><span class=line><span class=cl>};
+</span></span></code></pre></td></tr></table></div></div><p>呼叫執行個體方法稍稍複雜了一些，我們一步一步看他是怎麼執行的</p><ol><li>首先按鈕按下去後，執行<code>JsCallInstanceMethod()</code>，建立新的 <code>DotNetObjectReference&lt;JsRun></code> 執行個體</li><li>執行 JS 的 <code>sayHello</code> Function，調用 .NET <code>GetHelloMessage</code> 方法，完成後結果回傳給<code>result</code></li><li>最後為了避免記憶體洩漏以及允許GC，<code>DotNetObjectReference</code> 建立的執行個體要被放在 <code>Dispose</code> 內</li></ol><h2 id=小結>小結<a hidden class=anchor aria-hidden=true href=#小結>#</a></h2><p>就這樣我們一來一回的完成兩種語言的相互呼叫，在JS互通其實還有很多好玩的東西和細節，像是可以直接把<code>stream</code> 從 JS 傳輸到 .NET 、Blazor 在 JavaScript Module 有啟用JavaScript 隔離再也不用擔心全域汙染的問題&mldr;&mldr;等等，一時半刻也說不清，在後續的章節慢慢補充說明</p><p>寫完這篇才發現忘記介紹在 Blazor 該怎麼寫 CSS 了XDD
+下一篇文章回頭說說 Blazor 元件 CSS</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://twjimwang.github.io/tags/blazor/>Blazor</a></li><li><a href=https://twjimwang.github.io/tags/.net-core/>.net Core</a></li><li><a href=https://twjimwang.github.io/tags/web-app/>Web App</a></li></ul><nav class=paginav><a class=next href=https://twjimwang.github.io/posts/programming/blazor-008-componet-eventhandling/><span class=title>下一頁 »</span><br><span>ASP.NET Core Blazor 系列 - 008 元件(Componet) 事件處理</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop) on twitter" href="https://twitter.com/intent/tweet/?text=ASP.NET%20Core%20Blazor%20%e7%b3%bb%e5%88%97%20-%20009%20JavaScript%20%e4%ba%92%e9%80%9a%e6%80%a7%20%28JS%20interop%29&url=https%3a%2f%2ftwjimwang.github.io%2fposts%2fprogramming%2fblazor-009-jsinterop%2f&hashtags=Blazor%2c.netCore%2cWebApp"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop) on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2ftwjimwang.github.io%2fposts%2fprogramming%2fblazor-009-jsinterop%2f&title=ASP.NET%20Core%20Blazor%20%e7%b3%bb%e5%88%97%20-%20009%20JavaScript%20%e4%ba%92%e9%80%9a%e6%80%a7%20%28JS%20interop%29&summary=ASP.NET%20Core%20Blazor%20%e7%b3%bb%e5%88%97%20-%20009%20JavaScript%20%e4%ba%92%e9%80%9a%e6%80%a7%20%28JS%20interop%29&source=https%3a%2f%2ftwjimwang.github.io%2fposts%2fprogramming%2fblazor-009-jsinterop%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop) on reddit" href="https://reddit.com/submit?url=https%3a%2f%2ftwjimwang.github.io%2fposts%2fprogramming%2fblazor-009-jsinterop%2f&title=ASP.NET%20Core%20Blazor%20%e7%b3%bb%e5%88%97%20-%20009%20JavaScript%20%e4%ba%92%e9%80%9a%e6%80%a7%20%28JS%20interop%29"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop) on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ftwjimwang.github.io%2fposts%2fprogramming%2fblazor-009-jsinterop%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop) on whatsapp" href="https://api.whatsapp.com/send?text=ASP.NET%20Core%20Blazor%20%e7%b3%bb%e5%88%97%20-%20009%20JavaScript%20%e4%ba%92%e9%80%9a%e6%80%a7%20%28JS%20interop%29%20-%20https%3a%2f%2ftwjimwang.github.io%2fposts%2fprogramming%2fblazor-009-jsinterop%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop) on telegram" href="https://telegram.me/share/url?text=ASP.NET%20Core%20Blazor%20%e7%b3%bb%e5%88%97%20-%20009%20JavaScript%20%e4%ba%92%e9%80%9a%e6%80%a7%20%28JS%20interop%29&url=https%3a%2f%2ftwjimwang.github.io%2fposts%2fprogramming%2fblazor-009-jsinterop%2f"><svg viewBox="2 2 28 28" height="30" width="30" fill="currentcolor"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></div></footer></article></main><footer class=footer><span>&copy; 2022 <a href=https://twjimwang.github.io/>Jim's 技術部落格</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="複製";function s(){t.innerHTML="已複製！",setTimeout(()=>{t.innerHTML="複製"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

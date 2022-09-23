@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 22 Sep 2022 22:27:28 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Sep 2022 20:07:01 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-009-jsinterop/</link>
+      <pubDate>Fri, 23 Sep 2022 20:07:01 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-009-jsinterop/</guid>
+      <description>前言 Blazor 應用程式有提供從 JavaSript 呼叫 .NET Method 的方法，當然反過來也可以從 .NET Method 叫用 JavaScript Function，打通兩個語言之間的邊界，讓互動性更上一層樓! 概觀 在 Blazor 中</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 008 元件(Componet) 事件處理</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-008-componet-eventhandling/</link>
