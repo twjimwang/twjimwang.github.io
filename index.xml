@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 23 Sep 2022 20:07:01 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Sep 2022 22:08:20 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 010 元件(Componet) CSS</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-010-componet-css/</link>
+      <pubDate>Sat, 24 Sep 2022 22:08:20 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-010-componet-css/</guid>
+      <description>前言 在上一篇說明 JS 互通性時，有提到在 Blazor 上撰寫 JS 的部分，現在來介紹在 Blazor 中 CSS 的部分 CSS Isolation (CSS 隔離) 大家都知道 CSS 的套用是全域的，只要符合 CSS Selector 的所選的項</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 009 JavaScript 互通性 (JS interop)</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-009-jsinterop/</link>
