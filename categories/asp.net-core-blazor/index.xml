@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 24 Sep 2022 22:08:20 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/categories/asp.net-core-blazor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Sep 2022 20:42:52 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/categories/asp.net-core-blazor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 011 檔案處理</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-011-file/</link>
+      <pubDate>Sun, 25 Sep 2022 20:42:52 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-011-file/</guid>
+      <description>前言 在網頁的開發中，上傳檔案是一個非常常見的需求，本章節會介紹在開發 Blazor 時，該怎麼來實現檔案上傳的功能，Server 和 WebAssembly 雖然細節上有些差異但大</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 010 元件(Componet) CSS</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-010-componet-css/</link>
