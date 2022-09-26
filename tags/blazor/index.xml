@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 25 Sep 2022 20:42:52 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/blazor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Sep 2022 21:42:34 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/blazor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 012 WebAPI 呼叫</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-012-callwebapi/</link>
+      <pubDate>Mon, 26 Sep 2022 21:42:34 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-012-callwebapi/</guid>
+      <description>前言 WebAPI 的呼叫已經是網站開發者不可或缺的一項基本能力，如果使用 JS 可能用過 XMLHttpRequest 、 Ajax 、fetch 、axios &amp;hellip;&amp;hellip;等方式來</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 011 檔案處理</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-011-file/</link>
