@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 26 Sep 2022 21:42:34 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 27 Sep 2022 20:42:24 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 013 身分驗證 JWT概述</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-013-jwtintroduce/</link>
+      <pubDate>Tue, 27 Sep 2022 20:42:24 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-013-jwtintroduce/</guid>
+      <description>前言 驗證與授權一直是網站一個很重要的部分，Blazor Server 的專案，和以往的 ASP.NET MVC 專案類似，在這邊比較特別的是 Blazor WebAssembly，因為他是一</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 012 WebAPI 呼叫</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-012-callwebapi/</link>
