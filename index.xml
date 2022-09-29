@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 28 Sep 2022 19:13:47 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Sep 2022 19:50:57 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 015 身分驗證 登入畫面</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-015-jwtloginpage/</link>
+      <pubDate>Thu, 29 Sep 2022 19:50:57 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-015-jwtloginpage/</guid>
+      <description>前言 上一篇我們在後端建立了 Token 發行與驗證的機制，今天我們回到主題在 Blaoz 怎麼取得 Token 登入畫面 首先我們建立一個登入的頁面，有帳號和密碼欄位以及一個送出</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 014 身分驗證 實作JWT</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-014-jwtimplement/</link>
