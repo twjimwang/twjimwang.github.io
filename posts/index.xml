@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 29 Sep 2022 19:50:57 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Sep 2022 22:02:41 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 016 身分驗證 Bearer Token</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-016-jwtbearertoken/</link>
+      <pubDate>Fri, 30 Sep 2022 22:02:41 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-016-jwtbearertoken/</guid>
+      <description>前言 今日會展示在 Blazor 中，介紹如何儲存 Token 和存放的幾種位置以及他們的優缺點，還有帶著 Token 發送API Token 怎麼儲存 拿到 Token 後，應該放哪裡呢 ? 在前端可以存放資</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 015 身分驗證 登入畫面</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-015-jwtloginpage/</link>
