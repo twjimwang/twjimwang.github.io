@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 01 Oct 2022 20:38:18 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Oct 2022 18:27:31 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 018 路由與導向(2) 導航 Navigation</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-018-navigation/</link>
+      <pubDate>Sun, 02 Oct 2022 18:27:31 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-018-navigation/</guid>
+      <description>前言 完成路由的設定後，下一步就是切換到不同路由的方法，今天介紹怎麼使用 NavigationManager 來做路由的切換 NavigationManager 這是用來提供查詢和瀏覽 Uri 的工具，介紹幾個比較重要的事</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 017 路由與導向(1) 路由 Routing</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-017-route/</link>
