@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 02 Oct 2022 18:27:31 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/web-app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Oct 2022 20:36:27 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/web-app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 019 相依性注入</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-019-dependencyinjection/</link>
+      <pubDate>Mon, 03 Oct 2022 20:36:27 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-019-dependencyinjection/</guid>
+      <description>前言 相依性注入是一種可以存取在中央設定的服務的技術，註冊的服務可以直接在 razor 元件內使用，Blazor 跟 ASP.NET Core 上的 DI 稍微有些不同，如果還不清楚什麼</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 018 路由與導向(2) 導航 Navigation</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-018-navigation/</link>
