@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 03 Oct 2022 20:36:27 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Oct 2022 19:07:19 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 020 表單驗證</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-020-formvalidation/</link>
+      <pubDate>Tue, 04 Oct 2022 19:07:19 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-020-formvalidation/</guid>
+      <description>前言 今天來介紹表單驗證該怎麼做，透過 Blazor 內建表單元件，來做到對欄位的驗證 內建的驗證屬性 在 C# 內的 System.ComponentModel.DataAnnotations 命名空間有微軟提供的驗證屬性，這邊介紹幾個比較</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 019 相依性注入</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-019-dependencyinjection/</link>
