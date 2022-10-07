@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 06 Oct 2022 22:24:58 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/categories/asp.net-core-blazor/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Oct 2022 22:00:07 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/categories/asp.net-core-blazor/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blazor 23 UIComponentLibrary</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-023-uicomponentlibrary/</link>
+      <pubDate>Fri, 07 Oct 2022 22:00:07 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-023-uicomponentlibrary/</guid>
+      <description>前言 今天來點輕鬆的內容，介紹一下我發現的一些 UI 元件 Telerik UI for Blazor 網站: https://www.telerik.com/blazor-ui Ant Design Blazor 基於 Ant Design 設計的 Blazor 組件庫，中文資源豐富 網站: https://antblazor.com/ BootstrapBlazor 基於 Bootstrap 所開發的組件庫，</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 022 內建輸入元件(2)</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-022-custominputcomponet/</link>
