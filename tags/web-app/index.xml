@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 12 Oct 2022 21:58:21 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/web-app/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Oct 2022 22:03:39 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/web-app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASP.NET Core Blazor 系列 - 029 內建 Razor 元件 (6)</title>
+      <link>https://twjimwang.github.io/posts/programming/blazor-029-builtincomponet-06/</link>
+      <pubDate>Thu, 13 Oct 2022 22:03:39 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/blazor-029-builtincomponet-06/</guid>
+      <description>前言 今天介紹最後的四個元件NavMenu、NavLink、MainLayout 和 LayoutView NavMenu 這是專案建立時預設提供的 razor 元件，並不是被放在命名空間 Mi</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 028 內建 Razor 元件 (5)</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-028-builtincomponet-05/</link>
