@@ -9,7 +9,16 @@
       <link>https://twjimwang.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 14 Oct 2022 17:25:49 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/.net-core/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Mar 2023 19:57:50 +0800</lastBuildDate><atom:link href="https://twjimwang.github.io/tags/.net-core/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 EF Core 使用 PostgreSQL</title>
+      <link>https://twjimwang.github.io/posts/programming/efcore-postgresql/</link>
+      <pubDate>Wed, 15 Mar 2023 19:57:50 +0800</pubDate>
+      
+      <guid>https://twjimwang.github.io/posts/programming/efcore-postgresql/</guid>
+      <description>tags: PostgreSQL 前言 紀錄在 Entity Framework Core(EF Core) 操作 PostgreSQL 資料庫的一些步驟和細節 環境 .NET 6 PostgreSQL 15 EF Core 7 前置作業 想要透過 EF Core 存取資料庫，我們需要先到Nuget上安裝對應的套件，</description>
+    </item>
+    
     <item>
       <title>ASP.NET Core Blazor 系列 - 030 部署 Blazor</title>
       <link>https://twjimwang.github.io/posts/programming/blazor-030-deployblazor/</link>
